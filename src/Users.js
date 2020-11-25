@@ -9,6 +9,7 @@ function Users() {
     const [loading, setLoading] = useState(false);
     // 3. error
     const [error, setError] =  useState(null);
+
     // 가장 처음 사용될때 axios를 사용해서 렌더링 
     
     const fetchUsers = async () => {
@@ -21,17 +22,16 @@ function Users() {
             setUsers(response.data);
             // 요청 성공하면 setUsers를 바꿈
         } catch (e) {
-            console.log(e.response.data);
+            console.log(e.response.status);
             setError(e);
             // 요청이 실패하면 setError를 바꿈
         }
         setLoading(false);
         // loading이 끝났음
     }
-
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, []); // 컴포넌트가 처음 렌더링 될 때 [] 이 작업을 하겠다라는 것을 의미로 빈 배열
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
