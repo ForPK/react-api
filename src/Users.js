@@ -9,12 +9,12 @@ async function getUsers() {
 }
 
 function Users() {
-    const [state, refetch] = useAsync(getUsers);
-    // useAsync(getUsers, []) 넣어도 되지만 useAsync에 기본값을 이미 넣어서 생략 가능
+    const [state, refetch] = useAsync(getUsers, [], true);
+    // 컴포넌트가 처음 렌더링될 때 하는 요청은 생략
     const { loading, data: users, error } = state;
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
-    if (!users) return null;
+    if (!users) return <button onClick={refetch}>불러오기</button>;
 
     return (
         <>
